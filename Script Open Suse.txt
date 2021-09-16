@@ -1,0 +1,64 @@
+#!/bin/bash
+i=0
+
+while [ $i = 0 ]
+do
+
+echo "welke webserver wil je installeren?"
+read a
+
+if [ $a = "apache" ]
+then
+	zypper install apache2
+	echo "apache wordt nu geinstalleerd"
+
+elif [ $a = "nginx" ]
+then
+	zypper install nginx
+	echo "nginx wordt nu geinstalleerd"
+fi
+
+echo "wil je nextcloud installeren? j/n"
+read g
+
+if [ $g = "j" ]
+then	
+	wget https://download.nextcloud.com/server/releases/nextcloud-21.0.1.zip
+	echo "Nextcloud wordt nu geinstalleerd"
+	
+
+elif [ $g = "n" ] 
+then
+	echo "Nextcloud wordt niet geinstalleerd"
+
+fi
+
+echo "wil je Fail2Ban installeren? j/n"
+read b
+
+if [ $b = "j" ]
+then
+	zypper install fail2ban
+	echo "Fail2Ban wordt nu geinstalleerd"
+
+elif [ $b = "n" ] 
+then
+	echo "Fail2Ban wordt niet geinstalleerd"
+
+fi
+
+sudo zypper in php5 php5-mysql apache2-mod_php5
+
+echo "wil je het script opnieuw draaien? j/n"
+read e
+
+if [ $e = "n" ]
+then
+((i++))
+echo "het script is gestopt"
+
+else
+echo "het script start opnieuw"
+fi
+
+done
